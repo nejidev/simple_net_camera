@@ -1,6 +1,6 @@
 # simple net camera
 
-	linux v4l2 net camera, capture jpg update http server
+	linux v4l2 net camera, capture jpg upload to https server
 
 # 远程网络摄像头，放在家里，方便远程查看。
 
