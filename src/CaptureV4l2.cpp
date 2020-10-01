@@ -218,7 +218,7 @@ bool CaptureV4l2::start()
 {
 	int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
-	if(ioctl(m_fd, VIDIOC_STREAMON, &type)) 
+	if(ioctl(m_fd, VIDIOC_STREAMON, &type))
 	{
 		LOG_ERROR("Unable to start capture");
 		return false;
@@ -231,7 +231,7 @@ bool CaptureV4l2::stop()
 {
 	int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
-	if(ioctl(m_fd, VIDIOC_STREAMOFF, &type)) 
+	if(ioctl(m_fd, VIDIOC_STREAMOFF, &type))
 	{
 		LOG_ERROR("Unable to stop capture");
 		return false;
@@ -271,6 +271,24 @@ bool CaptureV4l2::getFrame()
 
 	m_rb_current  = buffer.index;
 	m_total_bytes = buffer.bytesused;
+
+	return true;
+}
+
+bool CaptureV4l2::putFrame()
+{
+	struct v4l2_buffer buffer;
+
+	memset(&buffer, 0, sizeof(buffer));
+	buffer.index  = m_rb_current;
+	buffer.type   = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	buffer.memory = V4L2_MEMORY_MMAP;
+
+	if(0 > ioctl(m_fd, VIDIOC_QBUF, &buffer))
+	{
+		LOG_ERROR("Unable to queue buffer");
+		return false;
+	}
 
 	return true;
 }

@@ -28,6 +28,7 @@ public:
 	bool start();
 	bool stop();
 	bool getFrame();
+	bool putFrame();
 	bool frameSaveImage(string file_path);
 
 private:

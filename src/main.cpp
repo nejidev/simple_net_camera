@@ -43,27 +43,28 @@ void capture_run(const char *dev, const char *url)
 		httpUpload.setUrl(url);
 	}
 
-        while(thread_runing)
-        {
+	while(thread_runing)
+	{
 		this_thread::sleep_for(std::chrono::seconds(1));
-                i++;
+		i++;
 
 		if(0 < i % FRAME_LIMIT) continue;
 
-                auto time = chrono::system_clock::to_time_t(chrono::system_clock::now());
-                stringstream file_name;
+		auto time = chrono::system_clock::to_time_t(chrono::system_clock::now());
+		stringstream file_name;
 
-                file_name<<put_time(localtime(&time),"%Y-%m-%d-%H-%M-%S")<<".jpg";
-                cap.getFrame();
-                cap.frameSaveImage(file_name.str());
+		file_name<<put_time(localtime(&time),"%Y-%m-%d-%H-%M-%S")<<".jpg";
+		cap.getFrame();
+		cap.frameSaveImage(file_name.str());
+		cap.putFrame();
 
 		if(0 < strlen(url))
-        	{
-        		httpUpload.startUpload(file_name.str());
-        	}
+		{
+			httpUpload.startUpload(file_name.str());
+		}
 
-                LOG_DEBUG("save:%s", file_name.str().c_str());
-        }
+		LOG_DEBUG("save:%s", file_name.str().c_str());
+	}
 }
 
 int main(int argc, char **argv)
