@@ -1,3 +1,11 @@
+/**
+ * @defgroup   HTTPUPLOAD Http Upload
+ *
+ * @brief      This file implements Http Upload.
+ *
+ * @author     nejidev
+ * @date       2020-10-01 10:38
+ */
 #include "HttpUpload.h"
 
 #include "log.h"

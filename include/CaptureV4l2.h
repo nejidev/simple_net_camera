@@ -1,3 +1,12 @@
+/**
+ * @defgroup   CAPTUREV4L2 Capture V 4 l 2
+ *
+ * @brief      This file implements Capture V 4 l 2.
+ *
+ * @author     nejidev
+ * @date       2020-10-01 10:37
+ */
+
 #ifndef __CAPTURE_V4L2_H__
 #define __CAPTURE_V4L2_H__
 
@@ -6,7 +15,6 @@
 
 using namespace std;
 
-#define VIDEO_DEV "/dev/video0"
 #define VIDEO_WIDTH  640
 #define VIDEO_HEIGHT 480
 #define NB_BUFFER 4
@@ -16,10 +24,11 @@ class CaptureV4l2 {
 public:
 	CaptureV4l2();
 	~CaptureV4l2();
-	bool init();
+	bool init(const char *dev);
 	bool start();
 	bool stop();
 	bool getFrame();
+	bool frameSaveImage(string file_path);
 
 private:
 	int                        m_fd;

@@ -1,3 +1,11 @@
+/**
+ * @defgroup   LOG log
+ *
+ * @brief      This file implements log.
+ *
+ * @author     nejidev
+ * @date       2020-10-01 10:37
+ */
 #ifndef __LOG_H__
 #define __LOG_H__
 

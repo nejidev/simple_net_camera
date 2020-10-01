@@ -1,3 +1,12 @@
+/**
+ * @defgroup   HTTPUPLOAD Http Upload
+ *
+ * @brief      This file implements Http Upload.
+ *
+ * @author     nejidev
+ * @date       2020-10-01 10:37
+ */
+
 #ifndef __HTTP_UPLOAD_H__
 #define __HTTP_UPLOAD_H__
 

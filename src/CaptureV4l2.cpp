@@ -1,3 +1,11 @@
+/**
+ * @defgroup   CAPTUREV4L2 Capture V 4 l 2
+ *
+ * @brief      This file implements Capture V 4 l 2.
+ *
+ * @author     nejidev
+ * @date       2020-10-01 10:37
+ */
 #include "CaptureV4l2.h"
 
 #include <unistd.h>
@@ -9,6 +17,9 @@
 #include <sys/mman.h>
 #include <signal.h>
 #include <poll.h>
+
+#include <iostream>
+#include <fstream>
 
 #include "log.h"
 
@@ -38,25 +49,25 @@ CaptureV4l2::~CaptureV4l2()
 	}
 }
 
-bool CaptureV4l2::init()
+bool CaptureV4l2::init(const char *dev)
 {
 	int ret = 0;
 	int i   = 0;
 
 	LOG_DEBUG("init");
 
-	m_fd = open(VIDEO_DEV, O_RDWR);
+	m_fd = open(dev, O_RDWR);
 
 	if(-1 == m_fd)
 	{
-		LOG_ERROR("%s open failed", VIDEO_DEV);
+		LOG_ERROR("%s open failed", dev);
 		return false;
 	}
 
 	memset(&m_cap, 0, sizeof(m_cap));
 	if(-1 == ioctl(m_fd, VIDIOC_QUERYCAP, &m_cap))
 	{
-		LOG_ERROR("%s ioctl failed", VIDEO_DEV);
+		LOG_ERROR("%s ioctl failed", dev);
 		return false;
 	}
 
@@ -127,7 +138,7 @@ bool CaptureV4l2::init()
 
 	if(0 > ret)
 	{
-		LOG_ERROR("%s Unable to set format", VIDEO_DEV);
+		LOG_ERROR("%s Unable to set format", dev);
 		return false;
 	}
 
@@ -258,8 +269,18 @@ bool CaptureV4l2::getFrame()
 		return false;
 	}
 
-	m_rb_current = buffer.index;
+	m_rb_current  = buffer.index;
 	m_total_bytes = buffer.bytesused;
+
+	return true;
+}
+
+bool CaptureV4l2::frameSaveImage(string file_path)
+{
+	ofstream stream(file_path, ios::out|ios::trunc|ios::binary);
+
+	stream.write((const char *)m_vide_buff[m_rb_current], m_total_bytes);
+	stream.close();
 
 	return true;
 }

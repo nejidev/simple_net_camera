@@ -7,6 +7,18 @@
 ## 为什么不买一个？
 	买到不全开源，不放心，不安全，也容易泄漏隐私。
 	所以有了此项目，全开源，还可以方便移值到各种平台上。
+	支持所有 linux 平台，Openwrt Raspberry
 
-# pre setup lib
-	sudo apt-get install libjpeg62-dev libcurl4-openssl-dev v4l-utils
+# pre depend library
+	sudo apt-get install libcurl4-openssl-dev v4l-utils
+
+# support Openwrt Raspberry ubuntu debain all linux machine
+	build by c++11 using libcurl
+	support v4l2 UVC camera only MJPEG
+
+# usage & build
+	make
+	run
+	./simple_net_camera or
+	./simple_net_camera /dev/video0 or
+	./simple_net_camera /dev/video0 https://192.168.1.100/php/cap_upload.php
