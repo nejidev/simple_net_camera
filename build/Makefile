@@ -1,13 +1,13 @@
-CROSS_COMPILE =
-LD		      = $(CROSS_COMPILE)ld
-CC		      = $(CROSS_COMPILE)gcc
-CXX		      = $(CROSS_COMPILE)g++
+#CROSS_COMPILE =
+#LD		      = $(CROSS_COMPILE)ld
+#CC		      = $(CROSS_COMPILE)gcc
+#CXX		      = $(CROSS_COMPILE)g++
 CFLAGS       := -Wall -O2 -g -std=c++11
-CFLAGS       += -Iinclude
+CFLAGS       += -I../include
 LDFLAGS      := -lpthread -lcurl 
 TARGET        = simple_net_camera
 
-OBJS := src/main.o src/HttpUpload.o src/CaptureV4l2.o
+OBJS := ../src/main.o ../src/HttpUpload.o ../src/CaptureV4l2.o
 
 all:$(OBJS)
 	$(CXX) -o $(TARGET) $^  $(LDFLAGS)
@@ -15,6 +15,9 @@ all:$(OBJS)
 clean:
 	rm -f *.o
 	rm -f $(TARGET)
+
+install:
+	cp $(TARGET) /usr/bin/
 
 %.o:%.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $<
