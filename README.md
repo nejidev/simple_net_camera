@@ -17,8 +17,18 @@
 	support v4l2 UVC camera only MJPEG
 
 # usage & build
-	make
-	run
-	./simple_net_camera or
-	./simple_net_camera /dev/video0 or
-	./simple_net_camera /dev/video0 https://192.168.1.100/php/cap_upload.php
+* Linux
+
+		cd build
+		make
+		run
+		./simple_net_camera or
+		./simple_net_camera /dev/video0 or
+		./simple_net_camera /dev/video0 https://192.168.1.100/php/cap_upload.php
+* openwrt
+
+		cd openwrt/package
+		mkdir simple_net_camera
+		cp build/openwrt/Makefile package/simple_net_camera
+		make menuconfig # select multimedia => simple net camera => *
+		make -j1 V=99
